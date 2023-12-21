@@ -12,17 +12,13 @@ public class Day2 {
 
         int sum=0;
 
-        /*for (int i=1;i<=100;i++){
+        for (int i=1;i<=100;i++){
             String str = scan.nextLine();
 
             if (isAllValid(parseSubString(str))) sum+=i;
-        }*/
-        scan.nextLine();
-        String str = scan.nextLine();
-        //System.out.println(Arrays.toString(parseNum(parseSubString(str)[2])));
-        System.out.println(parseSubString(str)[2]);
-
-
+        }
+        
+        System.out.println(sum);
 
         scan.close();
     }
@@ -48,15 +44,15 @@ public class Day2 {
 
         int redPos = str.indexOf("red");
         if (redPos>=0)
-            redNum = Integer.parseInt(str.substring(redPos-2,redPos-1));
+            redNum = Integer.parseInt(str.substring(str.substring(0,redPos-1).lastIndexOf(" ")+1,redPos-1));
 
         int greenPos = str.indexOf("green");
         if (greenPos>=0)
-            greenNum = Integer.parseInt(str.substring(greenPos-2,greenPos-1));
+            greenNum = Integer.parseInt(str.substring(str.substring(0,greenPos-1).lastIndexOf(" ")+1,greenPos-1));
 
         int bluePos = str.indexOf("blue");
         if (bluePos>=0)
-            blueNum = Integer.parseInt(str.substring(bluePos-2,bluePos-1));
+            blueNum = Integer.parseInt(str.substring(str.substring(0,bluePos-1).lastIndexOf(" ")+1,bluePos-1));
 
         return new int[] {redNum, greenNum, blueNum};
     }
