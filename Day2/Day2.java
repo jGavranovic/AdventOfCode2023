@@ -11,7 +11,7 @@ public class Day2 {
         Scanner scan = new Scanner(textFile);
 
         int sum=0;
-
+        //Part 1
         for (int i=1;i<=100;i++){
             String str = scan.nextLine();
 
@@ -19,6 +19,10 @@ public class Day2 {
         }
         
         System.out.println(sum);
+
+        //Part 2
+        int power = 0;
+
 
         scan.close();
     }
@@ -28,6 +32,8 @@ public class Day2 {
             if (isOneValid(parseNum(strs[i]))==false) return false;
         return true;
     }
+
+
 
     static boolean isOneValid(int[] balls){
         final int REDMAX = 12, GREENMAX = 13, BLUEMAX = 14;
@@ -81,5 +87,22 @@ public class Day2 {
         }
 
         return subStrings;
+    }
+
+    static int[] minSet(String[] strs){
+        int redMin, greenMin, blueMin;
+        for (int i=0;i<strs.length;i++){
+            if (i==0){
+                redMin = parseNum(strs[i])[0];
+                greenMin = parseNum(strs[i])[1];
+                blueMin = parseNum(strs[i])[2];
+            }
+            else {
+                if (parseNum(strs[i])[0]>redMin) redMin = parseNum(strs[i])[0];
+                if (parseNum(strs[i])[1]>greenMin) greenMin = parseNum(strs[i])[1];
+                if (parseNum(strs[i])[2]>blueMin) blueMin = parseNum(strs[i])[2];
+            }
+
+            return new int[] {redMin, greenMin,blueMin};
     }
 }
