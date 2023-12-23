@@ -5,33 +5,16 @@ import java.io.FileNotFoundException;
 
 
 public class Day2 {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException{
 
         File textFile = new File("D:\\Java\\Day2\\day2.txt");
-        Scanner scan = new Scanner(textFile);
-
-        int sum=0;
-        //Part 1
-        /*for (int i=1;i<=100;i++){
-            String str = scan.nextLine();
-
-            if (isAllValid(parseSubString(str))) sum+=i;
-        }
         
-        System.out.println(sum);*/
+        //part1(textFile);
 
-        //Part 2
-        int totalPower = 0;
-
-        for (int i=1;i<=100;i++){
-            String str = scan.nextLine();
-            totalPower+=powerOf(str);
-        }
-
-        System.out.println(totalPower);
-
-
-        scan.close();
+        
+        part2(textFile);
+        
+       
     }
 
     static boolean isAllValid(String[] strs){
@@ -122,5 +105,34 @@ public class Day2 {
         power = minimumSet[0]*minimumSet[1]*minimumSet[2];
 
         return power;
+    }
+
+    static void part1(File file) throws FileNotFoundException{
+        Scanner scan = new Scanner(file);
+        int sum=0;
+        for (int i=1;i<=100;i++){
+
+            String str = scan.nextLine();
+
+            if (isAllValid(parseSubString(str))) sum+=i;
+        }
+        
+        System.out.println(sum);
+        scan.close();
+    }
+
+    static void part2(File file) throws FileNotFoundException {
+        Scanner scan = new Scanner(file);
+         int totalPower = 0;
+
+        for (int i=1;i<=100;i++){
+            String str = scan.nextLine();
+            totalPower+=powerOf(str);
+        }
+
+        System.out.println(totalPower);
+
+
+        scan.close();
     }
 }
