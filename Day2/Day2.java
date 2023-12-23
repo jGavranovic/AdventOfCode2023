@@ -12,16 +12,23 @@ public class Day2 {
 
         int sum=0;
         //Part 1
-        for (int i=1;i<=100;i++){
+        /*for (int i=1;i<=100;i++){
             String str = scan.nextLine();
 
             if (isAllValid(parseSubString(str))) sum+=i;
         }
         
-        System.out.println(sum);
+        System.out.println(sum);*/
 
         //Part 2
-        int power = 0;
+        int totalPower = 0;
+
+        for (int i=1;i<=100;i++){
+            String str = scan.nextLine();
+            totalPower+=powerOf(str);
+        }
+
+        System.out.println(totalPower);
 
 
         scan.close();
@@ -90,7 +97,7 @@ public class Day2 {
     }
 
     static int[] minSet(String[] strs){
-        int redMin, greenMin, blueMin;
+        int redMin=0, greenMin=0, blueMin=0;
         for (int i=0;i<strs.length;i++){
             if (i==0){
                 redMin = parseNum(strs[i])[0];
@@ -102,7 +109,18 @@ public class Day2 {
                 if (parseNum(strs[i])[1]>greenMin) greenMin = parseNum(strs[i])[1];
                 if (parseNum(strs[i])[2]>blueMin) blueMin = parseNum(strs[i])[2];
             }
+        }
+        return new int[] {redMin, greenMin,blueMin};
+        
+    }
 
-            return new int[] {redMin, greenMin,blueMin};
+    static int powerOf(String str){
+        int power = 0;
+
+        String[] subStrings = parseSubString(str);
+        int[] minimumSet = minSet(subStrings);
+        power = minimumSet[0]*minimumSet[1]*minimumSet[2];
+
+        return power;
     }
 }
