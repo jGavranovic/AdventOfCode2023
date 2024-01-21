@@ -1,75 +1,63 @@
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
-//import java.io.NoSuchElementException;
-import java.util.Calendar;
-import java.util.Date;
 
-public class Main {
+public class Day1{
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new  File(System.getProperty("user.dir")+"\\Desktop\\SAP\\datafile.csv");
+
+        File file = new  File("day1.txt");
         Scanner scan = new Scanner(file);
 
-        int lines = 0;
-        try {
-            while (true) {
-                scan.nextLine();
-                lines++;
+        int sum=0;
+        String[] digits = {"one","two","three","four","five","six","seven","eight","nine"};
+
+        for (int i=0;i<1000;i++){
+            String str = scan.nextLine();
+            int leftNum=0,rightNum=0,leftPos=0,rightPos=0;
+
+            for (int j=0;j<str.length();j++){
+                try {
+                    leftNum = Integer.parseInt(str.substring(j,j+1));
+                    leftPos=j;
+                    break;
+                }
+                catch (NumberFormatException nfe){}
+
             }
-        } catch (java.util.NoSuchElementException e){
             
-        }
-
-        scan = new Scanner(file);
-
-        Appointment[] appointments = new Appointment[lines];
-
-
-        for (int i=0; i<lines; i++){
-            String currentLine = scan.nextLine();
-            appointments[i] = new Appointment(currentLine.substring(0,currentLine.indexOf(",")),currentLine.substring(currentLine.indexOf(",")+1,currentLine.lastIndexOf(",")),currentLine.substring(currentLine.lastIndexOf(",")+1));
-        }
-        
-        quickSort(appointments, 0, lines-1);
-
-        for (int i=0;i<lines;i++){
-            System.out.println(appointments[i].getApptRequestDate());
-        }
-
-        //scan.close();
-    }
-    static void swap(Appointment[] array, int i, int j)
-    {
-        Appointment temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    static int partition(Appointment[] array, int low, int high)
-    {
-
-        Date pivot = array[high].getApptRequestDate();
-
-        int i = (low - 1);
- 
-        for (int j = low; j <= high - 1; j++) {
- 
-            if (array[j].getApptRequestDate().compareTo(pivot)<0) {
- 
-                i++;
-                swap(array, i, j);
+            for (int j=str.length()-1;j>=0;j--){
+                try {
+                    rightNum = Integer.parseInt(str.substring(j,j+1));
+                    rightPos=j;
+                    break;
+                }
+                catch (NumberFormatException nfe){}
             }
+
+            for (int j=0;j<digits.length;j++){
+                int digitPos = str.indexOf(digits[j]);
+                
+                if (digitPos>=0&&digitPos<leftPos){
+                    leftNum=j+1;
+                    leftPos=digitPos;
+                }
+            }
+
+            for (int j=0;j<digits.length;j++){
+                int digitPos = str.lastIndexOf(digits[j]);
+                
+                if (digitPos>=0&&digitPos>rightPos){
+                    rightNum=j+1;
+                    rightPos=digitPos;
+                }
+            }
+
+            sum+=10*leftNum+rightNum;
+    
         }
-        swap(array, i + 1, high);
-        return (i + 1);
-    }
-    static void quickSort(Appointment[] array, int low, int high)
-    {
-        if (low < high) {
- 
-            int pi = partition(array, low, high);
- 
-            quickSort(array, low, pi - 1);
-            quickSort(array, pi + 1, high);
-        }
+
+        System.out.println(sum);
+        scan.close();
+
     }
 }
